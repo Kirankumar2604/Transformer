@@ -41,20 +41,24 @@ The first linear layer typically expands the feature dimension, and the second p
 
 The standard FFN can be represented as:
 
-$$\text{FFN}(x) = \max(0, xW_1 + b_1)W_2 + b_2$$
+$$
+\text{FFN}(x) = \max(0, xW_1 + b_1)W_2 + b_2
+$$
 
 Where:
 
 - $x$ = Input token representation.
-- $W_1$ = First weight matrix.
-- $b_1$ = First bias vector.
-- $W_2$ = Second weight matrix.
-- $b_2$ = Second bias vector.
+- $W_1$ = First weight matrix ($d_{\text{model}} \times d_{\text{ff}}$).
+- $b_1$ = First bias vector ($d_{\text{ff}}$).
+- $W_2$ = Second weight matrix ($d_{\text{ff}} \times d_{\text{model}}$).
+- $b_2$ = Second bias vector ($d_{\text{model}}$).
 - $\max(0, z)$ = ReLU activation applied element-wise.
 
 More generally:
 
-$$\text{FFN}(x) = \text{Activation}(xW_1 + b_1)W_2 + b_2$$
+$$
+\text{FFN}(x) = \text{Activation}(xW_1 + b_1)W_2 + b_2
+$$
 
 Different Transformer models can use different activation functions, such as GELU or variants of gated activations.
 
@@ -62,13 +66,23 @@ Different Transformer models can use different activation functions, such as GEL
 
 ### A. First Linear Layer
 
-The first linear layer transforms the input from the model dimension into a larger hidden dimension.
+The first linear layer transforms the input from the model dimension into a larger hidden dimension:
+
+$$
+h_1 = xW_1 + b_1
+$$
 
 For example:
 
-$$d_{\text{model}} = 512, \quad d_{\text{ff}} = 2048$$
+$$
+d_{\text{model}} = 512, \quad d_{\text{ff}} = 2048
+$$
 
-The transformation expands the representation from 512 features to 2048 features.
+The transformation expands the representation from $512$ features to $2048$ features:
+
+$$
+\mathbb{R}^{d_{\text{model}}} \xrightarrow{\text{expand}} \mathbb{R}^{d_{\text{ff}}}
+$$
 
 This provides an expanded feature space in which the network can learn useful intermediate representations.
 
@@ -80,7 +94,9 @@ The original Transformer uses ReLU.
 
 ReLU is defined as:
 
-$$\text{ReLU}(z) = \max(0, z)$$
+$$
+\text{ReLU}(z) = \max(0, z)
+$$
 
 Examples:
 
@@ -92,11 +108,21 @@ The activation function introduces nonlinearity, allowing the network to learn m
 
 ### C. Second Linear Layer
 
-The second linear layer projects the expanded hidden representation back to the model dimension.
+The second linear layer projects the activated hidden representation back to the model dimension:
+
+$$
+\text{FFN}(x) = h_{\text{act}} W_2 + b_2
+$$
+
+where $h_{\text{act}} = \text{ReLU}(h_1)$.
 
 For example:
 
-`2048 features -> 512 features`
+$$
+\mathbb{R}^{d_{\text{ff}}} \xrightarrow{\text{project back}} \mathbb{R}^{d_{\text{model}}}
+$$
+
+($2048\text{ features} \to 512\text{ features}$)
 
 This allows the FFN output to have the same dimension as its input, making it compatible with the residual connection.
 
@@ -184,31 +210,53 @@ The exact normalization placement varies by architecture.
 
 In a Post-LayerNorm design, the process can be expressed as:
 
-$$x_1 = \text{LayerNorm}(x + \text{MultiHeadAttention}(x))$$
+$$
+x_1 = \text{LayerNorm}(x + \text{MultiHeadAttention}(x))
+$$
 
-$$x_2 = \text{LayerNorm}(x_1 + \text{FFN}(x_1))$$
+$$
+x_2 = \text{LayerNorm}(x_1 + \text{FFN}(x_1))
+$$
 
 Here, $x_2$ is the output of the Transformer block.
 
 ## 10. Common Activation Functions
 
-### A. ReLU
+### A. ReLU (Rectified Linear Unit)
+
+The original Transformer FFN uses ReLU:
+
+$$
+\text{ReLU}(x) = \max(0, x)
+$$
 
 ReLU returns zero for negative inputs and preserves positive inputs.
 
-It was used in the original Transformer FFN.
+### B. GELU (Gaussian Error Linear Unit)
 
-### B. GELU
+Used in BERT, GPT-2, GPT-3, and many modern Transformers:
 
-GELU is a smooth activation function commonly used in Transformer models.
+$$
+\text{GELU}(x) = x \Phi(x) = x P(X \le x) \approx 0.5x \left(1 + \tanh\left(\sqrt{\frac{2}{\pi}} \left(x + 0.044715 x^3\right)\right)\right)
+$$
 
-It scales inputs according to a smooth function rather than setting every negative input to zero.
+GELU is a smooth activation function that weights inputs according to a probability distribution rather than abruptly setting every negative input to zero.
 
-### C. SwiGLU
+### C. SwiGLU (Swish Gated Linear Unit)
 
-SwiGLU is a gated activation design used in several modern language models.
+Used in modern language models like LLaMA, PaLM, and Mistral:
 
-It combines multiple learned projections with a gating mechanism and is not simply the same two-layer ReLU FFN used in the original Transformer.
+$$
+\text{SwiGLU}(x) = \left(\text{Swish}(xW_{\text{gate}}) \otimes xW_{\text{up}}\right) W_{\text{down}}
+$$
+
+where the Swish (SiLU) activation function is:
+
+$$
+\text{Swish}(z) = z \cdot \sigma(z) = \frac{z}{1 + e^{-z}}
+$$
+
+SwiGLU combines multiple learned projections with a gating mechanism ($\otimes$ denotes element-wise multiplication).
 
 Different activations and FFN designs can affect model capacity, computation, and performance.
 
@@ -250,6 +298,6 @@ Together, attention and feed-forward layers help Transformers learn complex patt
 
 ---
 
-**Previous Topic:** [Residual Connections and Layer Normalization](Residual-Connections-&-Layer-Normalization.md)
+**Previous Topic:** [Residual Connections and Layer Normalization](../Residual-Connections-&-Layer-Normalization/Residual-Connections-&-Layer-Normalization.md)
 
-**Next Topic:** [Encoder and Decoder Architecture](Encoder-and-Decoder.md)
+**Next Topic:** [Output Layer](../Output-Layer/Output-Layer.md)
