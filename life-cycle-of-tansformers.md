@@ -58,12 +58,12 @@ Produces the final generated response, one token at a time.
 
 The central equation of Transformer attention is:
 
-Attention(Q, K, V) = softmax(QKᵀ / √dₖ) V
+$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
 
-- **Q (Query):** Represents the information a token is looking for.
-- **K (Key):** Represents the features used to match tokens.
-- **V (Value):** Represents the information passed through attention.
-- **dₖ:** Dimension of the key vectors.
+- **$Q$ (Query):** Represents the information a token is looking for.
+- **$K$ (Key):** Represents the features used to match tokens.
+- **$V$ (Value):** Represents the information passed through attention.
+- **$d_k$:** Dimension of the key vectors.
 
 ## 4. Simplified Working Flow
 
@@ -106,3 +106,7 @@ Generated Text
 Transformer architecture uses self-attention to learn relationships between tokens. Its major components include embeddings, attention layers, feed-forward networks, and output prediction layers. It is a foundation of many modern AI systems.
 
 **Note:** This diagram represents the original encoder-decoder Transformer. GPT-style models generally use decoder-only architecture.
+
+
+**Next Topic:** [Tokenizer](../Transformer/tokenization/tokenization.md)
+

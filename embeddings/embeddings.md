@@ -366,13 +366,13 @@ A Transformer needs information about token order.
 
 In an architecture that uses additive positional embeddings:
 
-X_i = E_i + P_i
+$$X_i = E_i + P_i$$
 
 Where:
 
-- E_i = token embedding
-- P_i = positional vector
-- X_i = input representation
+- $E_i$ = Token embedding.
+- $P_i$ = Positional vector.
+- $X_i$ = Input representation.
 
 Example:
 
@@ -455,3 +455,7 @@ Embedding converts token IDs into numerical vectors that a Transformer can proce
 The embedding layer provides initial token representations. Positional information represents sequence order, and attention layers use surrounding context to develop richer representations.
 
 Embeddings are essential to modern language models, semantic search, recommendation systems, image understanding, and multimodal AI.
+
+**Previous Topic:** [Tokenizer](../tokenization/tokenization.md)
+
+**Next Topic:** [Positional encoding](../Positional-encoding/Positional-encoding.md)

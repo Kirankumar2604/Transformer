@@ -312,3 +312,7 @@ flowchart TD
 Tokenization determines how text is divided into tokens. The vocabulary maps tokens to integer IDs, and the embedding layer converts those IDs into vectors.
 
 Subword methods such as BPE, WordPiece, and Unigram are important in modern Transformer models because they balance vocabulary size with the ability to represent unfamiliar words.
+
+**Previous Topic:** [life-cycle-of-tansformers](../life-cycle-of-tansformers.md)
+
+**Next Topic:** [Embeddings](../embeddings/embeddings.md)
