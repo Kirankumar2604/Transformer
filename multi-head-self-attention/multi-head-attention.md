@@ -62,15 +62,21 @@ Therefore, different heads can calculate different attention patterns from the s
 
 The mathematical formula is:
 
-$$\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \text{head}_2, \dots, \text{head}_h)W^O$$
+$$
+\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \text{head}_2, \dots, \text{head}_h)W^O
+$$
 
 Each individual head is calculated as:
 
-$$\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$$
+$$
+\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)
+$$
 
 Scaled dot-product attention is defined as:
 
-$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+$$
+\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
 
 Where:
 
@@ -176,9 +182,13 @@ In the standard design, the model dimension is divided across the heads.
 
 For example:
 
-$$d_{\text{model}} = 512, \quad h = 8$$
+$$
+d_{\text{model}} = 512, \quad h = 8
+$$
 
-$$d_k = \frac{d_{\text{model}}}{h} = \frac{512}{8} = 64$$
+$$
+d_k = \frac{d_{\text{model}}}{h} = \frac{512}{8} = 64
+$$
 
 Each head uses a key/query dimension of 64 in this example.
 

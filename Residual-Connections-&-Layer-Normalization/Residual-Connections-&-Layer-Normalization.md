@@ -20,7 +20,9 @@ Instead of using only the output of a transformation, the network adds the origi
 
 ### Formula
 
-$$\text{Output} = x + \mathcal{F}(x)$$
+$$
+\text{Output} = x + \mathcal{F}(x)
+$$
 
 Where:
 
@@ -37,7 +39,9 @@ Suppose:
 
 Then:
 
-$$\text{Output} = 5 + 2 = 7$$
+$$
+\text{Output} = 5 + 2 = 7
+$$
 
 This simple numerical example illustrates the addition operation. Actual Transformer representations are vectors, and their dimensions must be compatible.
 
@@ -66,9 +70,13 @@ In a standard Transformer block, residual connections are commonly used around t
 
 A simplified post-normalization block can be represented as:
 
-$$x_1 = \text{LayerNorm}(x + \text{MultiHeadAttention}(x))$$
+$$
+x_1 = \text{LayerNorm}(x + \text{MultiHeadAttention}(x))
+$$
 
-$$x_2 = \text{LayerNorm}(x_1 + \text{FeedForward}(x_1))$$
+$$
+x_2 = \text{LayerNorm}(x_1 + \text{FeedForward}(x_1))
+$$
 
 Here:
 
@@ -93,16 +101,25 @@ It also typically applies learnable scale and shift parameters.
 
 ### Formula
 
-$$\text{LayerNorm}(x) = \gamma \odot \left(\frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}}\right) + \beta$$
+$$
+\text{LayerNorm}(x) = \gamma \odot \left(\frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}}\right) + \beta
+$$
 
 Where:
 
 - $x$ = Input feature vector.
-- $\mu$ = Mean of the normalized features ($\mu = \frac{1}{d}\sum_{i=1}^d x_i$).
-- $\sigma^2$ = Variance of the normalized features ($\sigma^2 = \frac{1}{d}\sum_{i=1}^d (x_i - \mu)^2$).
-- $\epsilon$ = Small constant used for numerical stability.
+- $\mu$ = Mean of the normalized features:
+  $$
+  \mu = \frac{1}{d}\sum_{i=1}^d x_i
+  $$
+- $\sigma^2$ = Variance of the normalized features:
+  $$
+  \sigma^2 = \frac{1}{d}\sum_{i=1}^d (x_i - \mu)^2
+  $$
+- $\epsilon$ = Small constant used for numerical stability ($10^{-5}$).
 - $\gamma$ = Learnable scale parameter.
 - $\beta$ = Learnable shift parameter.
+- $\odot$ = Element-wise multiplication.
 
 The scale and shift parameters allow the model to learn an appropriate output representation.
 
@@ -126,27 +143,43 @@ Layer normalization does not guarantee that every activation follows a normal di
 
 Consider a simplified input vector:
 
-$$x = [2, 4, 6]$$
+$$
+x = [2, 4, 6]
+$$
 
 ### Step 1: Calculate the mean
 
-$$\mu = \frac{2 + 4 + 6}{3} = 4$$
+$$
+\mu = \frac{2 + 4 + 6}{3} = \frac{12}{3} = 4
+$$
 
 ### Step 2: Calculate the variance
 
 Using the population variance:
 
-$$\sigma^2 = \frac{(2-4)^2 + (4-4)^2 + (6-4)^2}{3} = \frac{(-2)^2 + 0^2 + 2^2}{3} = \frac{8}{3} \approx 2.67$$
+$$
+\sigma^2 = \frac{(2-4)^2 + (4-4)^2 + (6-4)^2}{3} = \frac{(-2)^2 + 0^2 + 2^2}{3} = \frac{4 + 0 + 4}{3} = \frac{8}{3} \approx 2.67
+$$
 
 ### Step 3: Normalize the values
 
-Ignoring the small epsilon and assuming the default scale and shift are $\gamma = 1$ and $\beta = 0$:
+Ignoring the small $\epsilon$ and assuming the default scale and shift are $\gamma = 1$ and $\beta = 0$:
 
-$$\hat{x} = \frac{x - \mu}{\sqrt{\sigma^2}} = \frac{x - 4}{\sqrt{2.67}}$$
+$$
+\hat{x} = \frac{x - \mu}{\sqrt{\sigma^2}} = \frac{x - 4}{\sqrt{2.67}}
+$$
+
+For each element:
+
+- $x_1 = 2 \implies \frac{2 - 4}{1.633} \approx -1.225$
+- $x_2 = 4 \implies \frac{4 - 4}{1.633} = 0$
+- $x_3 = 6 \implies \frac{6 - 4}{1.633} \approx 1.225$
 
 The resulting vector is approximately:
 
-$$[-1.225, 0, 1.225]$$
+$$
+\hat{x} \approx [-1.225, 0, 1.225]
+$$
 
 In an actual model, learnable scale and shift parameters are applied after normalization.
 
@@ -172,7 +205,9 @@ In Post-LayerNorm, the output of the sublayer is added to its input before norma
 
 Formula:
 
-$$\text{Output} = \text{LayerNorm}(x + \mathcal{F}(x))$$
+$$
+\text{Output} = \text{LayerNorm}(x + \mathcal{F}(x))
+$$
 
 This arrangement is used in the original Transformer architecture.
 
@@ -182,7 +217,9 @@ In Pre-LayerNorm, the input is normalized before it enters the transformation, a
 
 Formula:
 
-$$\text{Output} = x + \mathcal{F}(\text{LayerNorm}(x))$$
+$$
+\text{Output} = x + \mathcal{F}(\text{LayerNorm}(x))
+$$
 
 Pre-LayerNorm is widely used in modern Transformer architectures and can provide favorable gradient-flow properties during training.
 
@@ -270,6 +307,6 @@ Understanding these components is essential for learning how Transformer blocks 
 
 ---
 
-**Previous Topic:** [Multi-Head Attention](Multi-Head-Attention.md)
+**Previous Topic:** [Multi-Head Attention](../multi-head-self-attention/multi-head-attention.md)
 
-**Next Topic:** [Feed-Forward Neural Network](Feed-Forward-Network.md)
+**Next Topic:** [Feed-Forward Neural Network](../Feed-Forward-Network/Feed-Forward-Network.md)

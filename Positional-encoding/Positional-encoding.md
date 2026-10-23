@@ -39,7 +39,9 @@ The positional encoding is added to the token embedding.
 
 **Formula:**
 
-$$\text{Input Representation} = \text{Token Embedding} + \text{Positional Encoding}$$
+$$
+\text{Input Representation} = \text{Token Embedding} + \text{Positional Encoding}
+$$
 
 The resulting vectors are passed to the Transformer layers.
 
@@ -63,11 +65,15 @@ The formulas are:
 
 For even dimensions ($2i$):
 
-$$\text{PE}_{(\text{pos}, 2i)} = \sin\left(\frac{\text{pos}}{10000^{\frac{2i}{d_{\text{model}}}}}\right)$$
+$$
+\text{PE}_{(\text{pos}, 2i)} = \sin\left(\frac{\text{pos}}{10000^{\frac{2i}{d_{\text{model}}}}}\right)
+$$
 
 For odd dimensions ($2i+1$):
 
-$$\text{PE}_{(\text{pos}, 2i+1)} = \cos\left(\frac{\text{pos}}{10000^{\frac{2i}{d_{\text{model}}}}}\right)$$
+$$
+\text{PE}_{(\text{pos}, 2i+1)} = \cos\left(\frac{\text{pos}}{10000^{\frac{2i}{d_{\text{model}}}}}\right)
+$$
 
 Where:
 
@@ -139,7 +145,9 @@ Each token receives an embedding vector, and each position receives positional i
 
 The model combines the two representations:
 
-$$\text{Final Vector} = \text{Token Embedding} + \text{Positional Encoding}$$
+$$
+\text{Final Vector} = \text{Token Embedding} + \text{Positional Encoding}
+$$
 
 As a result, the representation of "cat" at position 1 differs from how the same token would be represented at another position, assuming its token embedding remains the same.
 

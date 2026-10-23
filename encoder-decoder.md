@@ -277,7 +277,9 @@ Attention is one of the most important concepts in Transformers.
 
 Queries, keys, and values come from the same sequence:
 
-$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+$$
+\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
 
 In the Encoder, input tokens attend to other input tokens.
 
@@ -287,7 +289,9 @@ In the original Decoder, target tokens use masked self-attention to attend only 
 
 Queries come from one sequence, while keys and values come from another sequence:
 
-$$\text{CrossAttention}(Q_{\text{decoder}}, K_{\text{encoder}}, V_{\text{encoder}}) = \text{softmax}\left(\frac{Q_{\text{decoder}} K_{\text{encoder}}^T}{\sqrt{d_k}}\right)V_{\text{encoder}}$$
+$$
+\text{CrossAttention}(Q_{\text{decoder}}, K_{\text{encoder}}, V_{\text{encoder}}) = \text{softmax}\left(\frac{Q_{\text{decoder}} K_{\text{encoder}}^T}{\sqrt{d_k}}\right)V_{\text{encoder}}
+$$
 
 In the original Transformer:
 

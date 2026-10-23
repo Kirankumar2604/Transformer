@@ -58,7 +58,9 @@ Produces the final generated response, one token at a time.
 
 The central equation of Transformer attention is:
 
-$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+$$
+\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
 
 - **$Q$ (Query):** Represents the information a token is looking for.
 - **$K$ (Key):** Represents the features used to match tokens.

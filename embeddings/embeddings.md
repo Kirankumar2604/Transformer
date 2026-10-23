@@ -366,7 +366,9 @@ A Transformer needs information about token order.
 
 In an architecture that uses additive positional embeddings:
 
-$$X_i = E_i + P_i$$
+$$
+X_i = E_i + P_i
+$$
 
 Where:
 

@@ -43,7 +43,9 @@ The precise output pipeline depends on the model architecture and task.
 
 The linear output projection can be written as:
 
-$$\text{logits} = h W_{\text{out}} + b_{\text{out}}$$
+$$
+\text{logits} = h W_{\text{out}} + b_{\text{out}}
+$$
 
 Where:
 
@@ -54,7 +56,9 @@ Where:
 
 To convert logits into probabilities, softmax is applied:
 
-$$P(\text{token}_i) = \frac{\exp(\text{logit}_i)}{\sum_j \exp(\text{logit}_j)}$$
+$$
+P(\text{token}_i) = \frac{\exp(\text{logit}_i)}{\sum_j \exp(\text{logit}_j)}
+$$
 
 Where:
 
@@ -193,7 +197,9 @@ Cross-entropy loss is commonly used to train language models.
 
 For a single target token, it can be written as:
 
-$$\text{Loss} = -\log(P(\text{correct\_token}))$$
+$$
+\text{Loss} = -\log(P(\text{correct\_token}))
+$$
 
 Where:
 

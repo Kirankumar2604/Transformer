@@ -39,10 +39,18 @@ In [Output-Layer.ipynb](Output-Layer/Output-Layer.ipynb), the output layer was i
    ```
 2. **Linear Output Projection:**
    Maps the hidden vector to vocabulary logits using an output weight matrix `W_output` and bias:
-   $$\text{logits} = h \cdot W_{\text{output}} + b$$
+
+   $$
+   \text{logits} = h \cdot W_{\text{output}} + b
+   $$
+
 3. **Softmax Normalization:**
    Converts raw logits into a valid probability distribution over candidate tokens:
-   $$P(\text{token}_i) = \frac{e^{\text{logit}_i}}{\sum_j e^{\text{logit}_j}}$$
+
+   $$
+   P(\text{token}_i) = \frac{e^{\text{logit}_i}}{\sum_j e^{\text{logit}_j}}
+   $$
+
 4. **Greedy Token Selection:**
    Picks the candidate with the highest predicted probability:
    ```python
@@ -64,7 +72,11 @@ In standard Transformer literature (such as GPT-style models), this process of p
 In [self-attention.ipynb](self-attention/self-attention.ipynb) and [multi-head-self-attention.ipynb](multi-head-self-attention/multi-head-self-attention.ipynb):
 
 * **Bidirectional (Unmasked) Attention:** When computing attention scores:
-  $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+
+  $$
+  \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+  $$
+
   every token attends to **every other token** in the sequence—past, present, and future tokens simultaneously.
 * **Lack of Causal Masking:** A true autoregressive **Decoder** requires a causal mask (a lower-triangular matrix setting future positions to $-\infty$) to prevent tokens from looking ahead at future answers during training and inference.
 * Because no mask was applied, the internal feature extraction we implemented corresponds directly to a Transformer **Encoder** (like BERT).

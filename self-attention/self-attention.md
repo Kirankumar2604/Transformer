@@ -55,7 +55,9 @@ The output is a contextual representation of each token.
 
 ## 4. Scaled Dot-Product Attention Formula
 
-$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+$$
+\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
 
 Where:
 
@@ -133,11 +135,15 @@ The outputs of the heads are concatenated and projected into a combined represen
 
 ### Multi-Head Attention Formula
 
-$$\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h)W^O$$
+$$
+\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h)W^O
+$$
 
 Each head is computed as:
 
-$$\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$$
+$$
+\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)
+$$
 
 Where:
 
