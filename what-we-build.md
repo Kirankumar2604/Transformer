@@ -119,7 +119,7 @@ If you want to transition what we wrote into one of the standard pure architectu
 1. **To make it a true Decoder-Only model (like GPT):**
    * Add a causal mask matrix to `self-attention` and `multi-head-attention` by masking all upper-diagonal values ($i < j$) with $-\infty$ before applying softmax.
    * Keep the current output layer as-is for next-token generation.
-2. **To make it a true Encoder-Only model (like BERT):**
+2. **To make it a true Encoder-Only model (like BERT):** 
    * Keep the current unmasked bidirectional self-attention as-is.
    * Replace the next-token generation output layer with a classification head (e.g., sentiment analysis) or masked token predictor.
 3. **To make it an Encoder-Decoder model (like T5 / Vaswani):**
