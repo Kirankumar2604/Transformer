@@ -110,5 +110,5 @@ Transformer architecture uses self-attention to learn relationships between toke
 **Note:** This diagram represents the original encoder-decoder Transformer. GPT-style models generally use decoder-only architecture.
 
 
-**Next Topic:** [Tokenizer](../Transformer/tokenization/tokenization.md)
+**Next Topic:** [Tokenizer](tokenization/tokenization.md)
 
